@@ -1,9 +1,11 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
+import Capture from "@/capture";
+import React from "react";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
-    element: <div>Hello</div>,
+    element: <Capture />,
   },
 ]);
 

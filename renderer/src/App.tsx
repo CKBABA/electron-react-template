@@ -1,12 +1,12 @@
 import React from "react";
-import { Button } from "antd";
+import { RouterProvider } from 'react-router-dom'
+import router from '@/router/index'
 
 function App() {
   return (
-    <>
-      <Button type="primary">Hello World</Button>
-      <h1>💖 Hello World!</h1>
-    </>
+    <React.StrictMode>
+      <RouterProvider router={router}/>
+    </React.StrictMode>
   );
 }
 export default App;

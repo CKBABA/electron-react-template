@@ -1,12 +1,16 @@
-import type { Configuration } from 'webpack';
+import type { Configuration } from "webpack";
 
-import { rules } from './webpack.rules';
-import { plugins } from './webpack.plugins';
-import path from 'path'
+import { rules } from "./webpack.rules";
+import { plugins } from "./webpack.plugins";
+import path from "path";
 
 rules.push({
-  test: /\.css$/,
-  use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
+  test: /\.(css|scss)$/,
+  use: [
+    { loader: "style-loader" },
+    { loader: "css-loader" },
+    { loader: "sass-loader" },
+  ],
 });
 
 export const rendererConfig: Configuration = {
@@ -17,8 +21,7 @@ export const rendererConfig: Configuration = {
   resolve: {
     alias: {
       "@": path.join(__dirname, "./renderer/src"),
-      "@assets":path.join(__dirname, "./renderer/assets")
     },
-    extensions: ['.js', '.ts', '.jsx', '.tsx', '.css'],
+    extensions: [".js", ".ts", ".jsx", ".tsx", ".css"],
   },
 };

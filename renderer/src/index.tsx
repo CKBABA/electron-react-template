@@ -2,7 +2,7 @@ import React from "react"
 import { createRoot } from "react-dom/client"
 import App from '@/App'
 
-import '@assets/index.css';
+import '@/assets/index.scss';
 
 const root = document.getElementById('root')
 if (root) {

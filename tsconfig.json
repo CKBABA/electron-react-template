@@ -16,8 +16,9 @@
       "*": [
         "node_modules/*"
       ],
-      "@/*":["./renderer/src/*"],
-      "@assets/*":["./renderer/assets/*"]
+      "@/*": [
+        "./renderer/src/*"
+      ]
     }
   },
   "include": [
@@ -25,5 +26,7 @@
     "preload",
     "electron"
   ],
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules"
+  ],
 }

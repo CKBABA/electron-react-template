@@ -12,6 +12,9 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "jsx": "react",
+    "typeRoots": [
+      "types","node_modules/@types"
+    ],
     "paths": {
       "*": [
         "node_modules/*"
@@ -24,9 +27,12 @@
   "include": [
     "renderer",
     "preload",
-    "electron"
+    "electron",
+    "types/**/*.d.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist",
+    "out"
   ],
 }

@@ -1,5 +1,5 @@
 import type { Configuration } from 'webpack';
-
+import path from 'path';
 import { rules } from './webpack.rules';
 import { plugins } from './webpack.plugins';
 
@@ -15,6 +15,10 @@ export const mainConfig: Configuration = {
   },
   plugins,
   resolve: {
+    alias: {
+      "@electron": path.join(__dirname, "./electron"),
+
+    },
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
   },
 };

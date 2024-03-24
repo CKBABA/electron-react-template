@@ -19,7 +19,20 @@
           [
             "@",
             "./renderer/src"
-          ]        ],
+          ],
+          [
+            "@electron",
+            "./electron"
+          ],
+          [
+            "preload",
+            "./preload"
+          ],
+          [
+            "renderer",
+            "./renderer"
+          ]
+        ],
         "extensions": [
           ".js",
           ".jsx",

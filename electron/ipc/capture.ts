@@ -88,4 +88,5 @@ export function handleIPCCapture(window: BrowserWindow) {
   ipcMain.on("capture-screen", (event, arg) => {
     handleCaptureWeb(window);
   });
+
 }

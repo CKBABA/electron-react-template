@@ -1,5 +1,7 @@
 import fs from "fs";
 import * as os from "os";
+import { Buffer } from 'buffer'
+
 const userName = os.userInfo().username;
 const DefaultDownloadMap = new Map([
   ["win32", "C:/Users"],
@@ -7,12 +9,15 @@ const DefaultDownloadMap = new Map([
   ["darwin", "/Users"],
 ]);
 
-export function handleDownload() {
-  const blob = arguments[0];
-  const name = arguments[1];
-  console.log(arguments)
-  console.log(name);
-  const filePath =
-  DefaultDownloadMap.get(os.platform()) + "/Downloads" + "/" + userName;
-  fs.writeFile(filePath, blob, (err) => {});
+export function handleDownload(fileName, arrayBuffer) {
+  const filePath = `${DefaultDownloadMap.get(os.platform())}/${userName}/Downloads/${fileName}`
+  console.log(filePath)
+  console.log(111)
+  fs.writeFile(filePath, Buffer.from(arrayBuffer), (err) => {
+    if (err) {
+      console.error('Error saving file:', err);
+    } else {
+      console.log('File saved successfully:', filePath);
+    }
+  });
 }

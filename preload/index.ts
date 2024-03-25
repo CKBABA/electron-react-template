@@ -1,10 +1,11 @@
 import "./captrue";
 
 import { contextBridge, ipcRenderer } from "electron";
-
 contextBridge.exposeInMainWorld("ipc", {
   startDesktopCapturer: () => ipcRenderer.invoke("start-desktopCapturer"),
-  download: () => ipcRenderer.send("download"),
+  download: (fileName, arrayBuffer) => {
+    ipcRenderer.send("download", fileName, arrayBuffer)
+  },
 });
 
 contextBridge.exposeInMainWorld("record", {

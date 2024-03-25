@@ -6,8 +6,8 @@ import { handleDownload } from "../method/utils";
 export const handleIPCMethod = function () {
   const { startFfmpegRecording, stopRecording, downloadVideo } =
     useScreenRecorder();
-  ipcMain.on("download", (event, arg) => {
-    handleDownload(arg);
+  ipcMain.on("download", (event, fileName, arrayBuffer) => {
+    handleDownload(fileName, arrayBuffer);
   });
   ipcMain.on("start-ffmpeg-record", (event, arg) => {
     startFfmpegRecording();

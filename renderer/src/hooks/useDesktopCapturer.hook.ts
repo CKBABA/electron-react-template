@@ -46,20 +46,20 @@ const useDesktopCapturer = () => {
       setStream(null);
     }
   };
-  const startRecord = async () => {
-    // mediaRecorder = new MediaRecorder(stream);
-    await setMediaRecorder(new MediaRecorder(stream));
-    console.log(mediaRecorder);
-    mediaRecorder.ondataavailable = handleDataAvailable;
-    mediaRecorder.onstop = handleStop;
-    mediaRecorder.start(1500);
+  const startRecord = () => {
+    const recorder = new MediaRecorder(stream)
+    recorder.ondataavailable = handleDataAvailable;
+    recorder.onstop = handleStop;
+    recorder.start(1500);
     setIsRecording(true);
+    setMediaRecorder(recorder);
+
   };
   const handleDataAvailable = (event) => {
     console.log(event);
     if (event.data.size > 0) {
-      //   recordedChunks.push(event.data);
       const recordedChunksTemp = [...recordedChunks, event.data];
+      console.log(recordedChunks)
       setRecordedChunks(recordedChunksTemp);
     }
   };
@@ -71,13 +71,16 @@ const useDesktopCapturer = () => {
     mediaRecorder.stop();
   };
   const clearChunks = () => {
-    // recordedChunks = [];
     setRecordedChunks([]);
   };
   const downloadRecord = () => {
-    const blob = new Blob(recordedChunks, { type: "video/webm" });
-    console.log(recordedChunks);
-    ipc.download(blob, "video.mp4");
+    const blob = new Blob(recordedChunks, { type: "video/mp4" });
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      const arrayBuffer = event.target.result;
+      ipc.download("video.mp4", arrayBuffer);
+    };
+    reader.readAsArrayBuffer(blob);
   };
 
   return {

@@ -11,8 +11,6 @@ const DefaultDownloadMap = new Map([
 
 export function handleDownload(fileName, arrayBuffer) {
   const filePath = `${DefaultDownloadMap.get(os.platform())}/${userName}/Downloads/${fileName}`
-  console.log(filePath)
-  console.log(111)
   fs.writeFile(filePath, Buffer.from(arrayBuffer), (err) => {
     if (err) {
       console.error('Error saving file:', err);

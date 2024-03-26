@@ -20,6 +20,7 @@ const useDesktopCapturer = () => {
     };
     fetchData();
   }, []);
+
   const getSources = async () => {
     const sources = await ipc.startDesktopCapturer();
     setSources(sources);
@@ -40,27 +41,31 @@ const useDesktopCapturer = () => {
           },
         },
       });
-      setStream(stream);
+      await setStream(stream);
+      if (isRecording) startRecord();
     } catch (err) {
-      console.log(err);
       setStream(null);
     }
   };
   const startRecord = () => {
-    const recorder = new MediaRecorder(stream)
-    recorder.ondataavailable = handleDataAvailable;
-    recorder.onstop = handleStop;
-    recorder.start(1500);
-    setIsRecording(true);
-    setMediaRecorder(recorder);
+    try {
+      const recorder = new MediaRecorder(stream);
+      console.log(recorder);
+      recorder.ondataavailable = handleDataAvailable;
+      recorder.onstop = handleStop;
+      recorder.start(1500);
 
+      if (!isRecording) clearChunks();
+      setIsRecording(true);
+      setMediaRecorder(recorder);
+    } catch (err) {
+      console.log(err);
+    }
   };
   const handleDataAvailable = (event) => {
-    console.log(event);
     if (event.data.size > 0) {
-      const recordedChunksTemp = [...recordedChunks, event.data];
-      console.log(recordedChunks)
-      setRecordedChunks(recordedChunksTemp);
+      console.log(recordedChunks);
+      setRecordedChunks((preChunks) => [...preChunks, event.data]);
     }
   };
   const handleStop = () => {
@@ -71,6 +76,7 @@ const useDesktopCapturer = () => {
     mediaRecorder.stop();
   };
   const clearChunks = () => {
+    console.log('clear')
     setRecordedChunks([]);
   };
   const downloadRecord = () => {
